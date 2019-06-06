@@ -54,7 +54,6 @@ function LoginForm(props) {
               fullWidth
             />
             <TextField
-              autoFocus
               margin="dense"
               id="login-password"
               label="Password"

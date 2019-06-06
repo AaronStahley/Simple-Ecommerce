@@ -32,7 +32,7 @@ function RegistrationForm(props) {
         err => {
           if (!err) {
             console.log(Accounts.userId());
-            client.resetStore();
+            this.props.client.resetStore();
           }
           console.log(err);
         }
@@ -66,7 +66,6 @@ function RegistrationForm(props) {
               fullWidth
             />
             <TextField
-              autoFocus
               margin="dense"
               id="register-password"
               label="Password"
@@ -75,7 +74,6 @@ function RegistrationForm(props) {
               fullWidth
             />
             <TextField
-              autoFocus
               margin="dense"
               id="register-confirm-password"
               label="Confirm Password"

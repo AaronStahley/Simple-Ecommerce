@@ -3,6 +3,7 @@ import NavBar from "./NavBar";
 import gql from "graphql-tag";
 import { graphql } from "react-apollo";
 import { withApollo } from "react-apollo";
+import "./css/index.css";
 
 const App = ({ user, loading, client }) => {
   if (loading) return null;
