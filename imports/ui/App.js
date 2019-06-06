@@ -4,9 +4,11 @@ import gql from "graphql-tag";
 import { graphql } from "react-apollo";
 import { withApollo } from "react-apollo";
 import "./css/index.css";
+import LoadingIcon from "./LoadingIcon";
 
 const App = ({ user, loading, client }) => {
-  if (loading) return null;
+  if (loading) return <LoadingIcon />;
+
   return (
     <div>
       <NavBar user={user} client={client} />
