@@ -22,8 +22,9 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function NavBar() {
+function NavBar(props) {
   const classes = useStyles();
+  const { user, client } = props;
 
   return (
     <div className={classes.root}>
@@ -40,10 +41,27 @@ export default function NavBar() {
           <Typography variant="h6" className={classes.title}>
             Title Of Site
           </Typography>
-          <LoginForm />
-          <RegistrationForm />
+          {user._id ? (
+            <Button
+              type="submit"
+              onClick={() => {
+                Meteor.logout();
+                client.resetStore();
+              }}
+              color="inherit"
+            >
+              Logout
+            </Button>
+          ) : (
+            <React.Fragment>
+              <LoginForm client={client} />
+              <RegistrationForm client={client} />
+            </React.Fragment>
+          )}
         </Toolbar>
       </AppBar>
     </div>
   );
 }
+
+export default NavBar;

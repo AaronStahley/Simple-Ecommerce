@@ -7,8 +7,9 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
-function RegistrationForm() {
+function RegistrationForm(props) {
   const [open, setOpen] = React.useState(false);
+  const { client } = props;
 
   function handleClickOpen() {
     setOpen(true);
@@ -31,7 +32,7 @@ function RegistrationForm() {
         err => {
           if (!err) {
             console.log(Accounts.userId());
-            //   this.props.client.resetStore();
+            client.resetStore();
           }
           console.log(err);
         }
