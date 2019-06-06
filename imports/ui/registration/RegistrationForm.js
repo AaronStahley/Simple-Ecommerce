@@ -20,22 +20,26 @@ function RegistrationForm() {
 
   registerUser = e => {
     e.preventDefault();
-    console.log(this.email.value);
 
     //Creates an account with the user info.
-    Accounts.createUser(
-      {
-        email: this.email.value,
-        password: this.password.value
-      },
-      err => {
-        if (!err) {
-          console.log(Accounts.userId());
-          //   this.props.client.resetStore();
+    if (this.password.value === this.confirmPassword.value) {
+      Accounts.createUser(
+        {
+          email: this.email.value,
+          password: this.password.value
+        },
+        err => {
+          if (!err) {
+            console.log(Accounts.userId());
+            //   this.props.client.resetStore();
+          }
+          console.log(err);
         }
-        console.log(err);
-      }
-    );
+      );
+    } else {
+      console.log("Passwords dont match");
+      setOpen(true);
+    }
   };
 
   return (
@@ -51,10 +55,6 @@ function RegistrationForm() {
         <form onSubmit={registerUser}>
           <DialogTitle id="form-dialog-title">Register</DialogTitle>
           <DialogContent>
-            <DialogContentText>
-              To subscribe to this website, please enter your email address
-              here. We will send updates occasionally.
-            </DialogContentText>
             <TextField
               autoFocus
               margin="dense"
@@ -73,6 +73,15 @@ function RegistrationForm() {
               inputRef={input => (this.password = input)}
               fullWidth
             />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="register-confirm-password"
+              label="Confirm Password"
+              type="password"
+              inputRef={input => (this.confirmPassword = input)}
+              fullWidth
+            />
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} color="primary">
@@ -89,43 +98,3 @@ function RegistrationForm() {
 }
 
 export default RegistrationForm;
-
-// class RegistrationForm extends Component {
-//   registerUser = e => {
-//     e.preventDefault();
-
-//     //Creates an account with the user info.
-//     Accounts.createUser(
-//       {
-//         email: this.email.value,
-//         password: this.password.value
-//       },
-//       err => {
-//         if (!err) {
-//           //   this.props.client.resetStore();
-//         }
-//         console.log(err);
-//       }
-//     );
-//   };
-
-//   render() {
-//     return (
-//       <div>
-//         <form onSubmit={this.registerUser}>
-//           <label>Email: </label>
-//           <input type="email" ref={input => (this.email = input)} />
-//           <br />
-//           <br />
-//           <label>Password: </label>
-//           <input type="password" ref={input => (this.password = input)} />
-//           &nbsp;
-//           <br /> <br />
-//           <button type="submit">Register User</button>
-//         </form>
-//       </div>
-//     );
-//   }
-// }
-
-// export default RegistrationForm;
