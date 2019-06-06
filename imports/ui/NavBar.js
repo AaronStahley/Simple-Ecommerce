@@ -8,6 +8,7 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 
 import RegistrationForm from "./registration/RegistrationForm";
+import LoginForm from "./login/LoginForm";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -39,11 +40,10 @@ export default function NavBar() {
           <Typography variant="h6" className={classes.title}>
             Title Of Site
           </Typography>
+          <LoginForm />
           <RegistrationForm />
-          {/* <LoginForm /> */}
         </Toolbar>
       </AppBar>
-      <RegistrationForm />
     </div>
   );
 }

@@ -18,47 +18,71 @@ function RegistrationForm() {
     setOpen(false);
   }
 
+  registerUser = e => {
+    e.preventDefault();
+    console.log(this.email.value);
+
+    //Creates an account with the user info.
+    Accounts.createUser(
+      {
+        email: this.email.value,
+        password: this.password.value
+      },
+      err => {
+        if (!err) {
+          console.log(Accounts.userId());
+          //   this.props.client.resetStore();
+        }
+        console.log(err);
+      }
+    );
+  };
+
   return (
     <div>
       <Button color="inherit" onClick={handleClickOpen}>
-        Registration
+        Register
       </Button>
       <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            To subscribe to this website, please enter your email address here.
-            We will send updates occasionally.
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Email"
-            type="email"
-            fullWidth
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Password"
-            type="password"
-            fullWidth
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={handleClose} color="primary">
-            Register
-          </Button>
-        </DialogActions>
+        <form onSubmit={registerUser}>
+          <DialogTitle id="form-dialog-title">Register</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              To subscribe to this website, please enter your email address
+              here. We will send updates occasionally.
+            </DialogContentText>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="email"
+              label="Email"
+              type="email"
+              inputRef={input => (this.email = input)}
+              fullWidth
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="register-password"
+              label="Password"
+              type="password"
+              inputRef={input => (this.password = input)}
+              fullWidth
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              Cancel
+            </Button>
+            <Button type="submit" onClick={handleClose} color="primary">
+              Register
+            </Button>
+          </DialogActions>
+        </form>
       </Dialog>
     </div>
   );
