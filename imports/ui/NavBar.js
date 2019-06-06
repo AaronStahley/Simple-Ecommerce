@@ -16,6 +16,19 @@ import RegistrationForm from "./registration/RegistrationForm";
 import LoginForm from "./login/LoginForm";
 import Badge from "@material-ui/core/Badge";
 import LogoutIcon from "@material-ui/icons/ExitToApp";
+import Drawer from "@material-ui/core/Drawer";
+import Button from "@material-ui/core/Button";
+import List from "@material-ui/core/List";
+import Divider from "@material-ui/core/Divider";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import InboxIcon from "@material-ui/icons/MoveToInbox";
+import HomeIcon from "@material-ui/icons/Home";
+import ListIcon from "@material-ui/icons/ListAlt";
+import BuyAgainIcon from "@material-ui/icons/Replay";
+import OrdersIcon from "@material-ui/icons/Assignment";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -26,29 +39,117 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     flexGrow: 1
+  },
+  list: {
+    width: 250
+  },
+  fullList: {
+    width: "auto"
   }
 }));
 
 function NavBar(props) {
   const { user, client } = props;
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
+  const [state, setState] = React.useState({
+    left: false
+  });
 
-  function handleChange(event) {
-    setAuth(event.target.checked);
-  }
+  const toggleDrawer = (side, open) => event => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
 
-  function handleMenu(event) {
-    setAnchorEl(event.currentTarget);
-  }
+    setState({ ...state, [side]: open });
+  };
 
-  function handleClose() {
-    setAnchorEl(null);
-  }
+  const sideList = side => (
+    <div
+      className={classes.list}
+      role="presentation"
+      onClick={toggleDrawer(side, false)}
+      onKeyDown={toggleDrawer(side, false)}
+    >
+      <List>
+        <ListItem component={Link} to="/" button key={"home"}>
+          <ListItemIcon>
+            <HomeIcon />
+          </ListItemIcon>
+          <ListItemText primary={"Home"} />
+        </ListItem>
+        <ListItem
+          component={Link}
+          to={user._id ? "/orders" : "/"}
+          button
+          key={"Your Orders"}
+        >
+          <ListItemIcon>
+            <OrdersIcon />
+          </ListItemIcon>
+          <ListItemText primary={"Your Orders"} />
+        </ListItem>
+        <ListItem
+          component={Link}
+          to={user._id ? "/buyagain" : "/"}
+          button
+          key={"Buy Again"}
+        >
+          <ListItemIcon>
+            <BuyAgainIcon />
+          </ListItemIcon>
+          <ListItemText primary={"Buy Again"} />
+        </ListItem>
+        <ListItem
+          component={Link}
+          to={user._id ? "/list" : "/"}
+          button
+          key={"Your List"}
+        >
+          <ListItemIcon>
+            <ListIcon />
+          </ListItemIcon>
+          <ListItemText primary={"Your List"} />
+        </ListItem>
+        <ListItem
+          component={Link}
+          to={user._id ? "/account" : "/"}
+          button
+          key={"Your Account"}
+        >
+          <ListItemIcon>
+            <AccountCircle />
+          </ListItemIcon>
+          <ListItemText primary={"Your Account"} />
+        </ListItem>
+        {user._id ? (
+          <ListItem
+            button
+            key={"Logout"}
+            onClick={() => {
+              Meteor.logout();
+              client.resetStore();
+            }}
+            component={Link}
+            to="/"
+          >
+            <ListItemIcon>
+              <LogoutIcon />
+            </ListItemIcon>
+            <ListItemText primary={"Logout"} />
+          </ListItem>
+        ) : null}
+      </List>
+    </div>
+  );
 
   return (
     <div className={classes.root}>
+      <Drawer open={state.left} onClose={toggleDrawer("left", false)}>
+        {sideList("left")}
+      </Drawer>
       <AppBar position="static">
         <Toolbar>
           <IconButton
@@ -56,7 +157,7 @@ function NavBar(props) {
             className={classes.menuButton}
             color="inherit"
             aria-label="Menu"
-            onClick={() => console.log("open drawer left")}
+            onClick={toggleDrawer("left", true)}
           >
             <MenuIcon />
           </IconButton>
@@ -76,54 +177,6 @@ function NavBar(props) {
                   <ShoppingCart />
                 </Badge>
               </IconButton>
-              <IconButton
-                aria-label="Account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right"
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right"
-                }}
-                open={open}
-                onClose={handleClose}
-              >
-                <MenuItem
-                  onClick={() => {
-                    handleClose();
-                    console.log("go to profile of current user");
-                  }}
-                >
-                  <IconButton>
-                    <AccountCircle />
-                  </IconButton>
-                  Profile
-                </MenuItem>
-                <MenuItem
-                  onClick={() => {
-                    handleClose();
-                    Meteor.logout();
-                    client.resetStore();
-                  }}
-                >
-                  <IconButton>
-                    <LogoutIcon />
-                  </IconButton>
-                  Logout
-                </MenuItem>
-              </Menu>
             </div>
           ) : (
             <React.Fragment>
