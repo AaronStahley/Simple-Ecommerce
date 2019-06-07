@@ -29,6 +29,7 @@ import ListIcon from "@material-ui/icons/ListAlt";
 import BuyAgainIcon from "@material-ui/icons/Replay";
 import OrdersIcon from "@material-ui/icons/Assignment";
 import { Link } from "react-router-dom";
+import Avatar from "@material-ui/core/Avatar";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -45,6 +46,15 @@ const useStyles = makeStyles(theme => ({
   },
   fullList: {
     width: "auto"
+  },
+  banner: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    backgroundColor: "gray",
+    padding: 10,
+    color: "#fff"
   }
 }));
 
@@ -73,6 +83,10 @@ function NavBar(props) {
       onClick={toggleDrawer(side, false)}
       onKeyDown={toggleDrawer(side, false)}
     >
+      <div className={classes.banner}>
+        <Avatar className={classes.avatar}>AS</Avatar>
+        <h4 style={{ paddingLeft: 10 }}>Hello, user</h4>
+      </div>
       <List>
         <ListItem component={Link} to="/" button key={"home"}>
           <ListItemIcon>
