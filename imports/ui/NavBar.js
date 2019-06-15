@@ -30,10 +30,14 @@ import BuyAgainIcon from "@material-ui/icons/Replay";
 import OrdersIcon from "@material-ui/icons/Assignment";
 import { Link } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
+import grey from "@material-ui/core/colors/grey";
 
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1
+  },
+  navBar: {
+    backgroundColor: "#424242"
   },
   menuButton: {
     marginRight: theme.spacing(2)
@@ -52,8 +56,8 @@ const useStyles = makeStyles(theme => ({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-start",
-    backgroundColor: "gray",
-    padding: 10,
+    backgroundColor: "#424242",
+    paddingLeft: 10,
     color: "#fff"
   }
 }));
@@ -85,7 +89,7 @@ function NavBar(props) {
     >
       <div className={classes.banner}>
         <Avatar className={classes.avatar}>AS</Avatar>
-        <h4 style={{ paddingLeft: 10 }}>Hello, user</h4>
+        <h5 style={{ paddingLeft: 10 }}>Hello, user</h5>
       </div>
       <List>
         <ListItem component={Link} to="/" button key={"home"}>
@@ -165,7 +169,7 @@ function NavBar(props) {
         {sideList("left")}
       </Drawer>
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar className={classes.navBar}>
           <IconButton
             edge="start"
             className={classes.menuButton}

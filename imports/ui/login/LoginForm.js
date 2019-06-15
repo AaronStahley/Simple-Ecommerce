@@ -63,6 +63,7 @@ function LoginForm(props) {
             />
           </DialogContent>
           <DialogActions>
+            <Button>Register</Button>
             <Button onClick={handleClose} color="primary">
               Cancel
             </Button>
