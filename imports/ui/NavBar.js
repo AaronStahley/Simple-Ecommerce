@@ -13,7 +13,6 @@ import FormGroup from "@material-ui/core/FormGroup";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import RegistrationForm from "./registration/RegistrationForm";
-import LoginForm from "./login/LoginForm";
 import Badge from "@material-ui/core/Badge";
 import LogoutIcon from "@material-ui/icons/ExitToApp";
 import Drawer from "@material-ui/core/Drawer";
@@ -189,7 +188,8 @@ function NavBar(props) {
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
                 color="inherit"
-                onClick={() => console.log("Open cart page")}
+                component={Link}
+                to={user._id ? "/cart" : "/"}
               >
                 <Badge badgeContent={11} color="secondary">
                   <ShoppingCart />
@@ -206,7 +206,7 @@ function NavBar(props) {
               >
                 <ShoppingCart />
               </IconButton>
-              <LoginForm client={client} />
+              {/* <LoginForm client={client} /> */}
             </React.Fragment>
           )}
         </Toolbar>

@@ -11,6 +11,8 @@ import BuyAgain from "./pages/BuyAgain";
 import Home from "./pages/Home";
 import List from "./pages/List";
 import Orders from "./pages/Orders";
+import Cart from "./pages/Cart";
+import Login from "./pages/Login";
 
 const App = ({ user, loading, client }) => {
   if (loading) return <LoadingIcon />;
@@ -19,11 +21,17 @@ const App = ({ user, loading, client }) => {
     <Router>
       <div>
         <NavBar user={user} client={client} />
+        <Route
+          exact
+          path="/login"
+          render={() => <Login user={user} client={client} />}
+        />
         <Route exact path="/account" component={Account} />
         <Route exact path="/buyagain" component={BuyAgain} />
         <Route exact path="/" component={Home} />
         <Route exact path="/List" component={List} />
         <Route exact path="/orders" component={Orders} />
+        <Route exact path="/cart" component={Cart} />
       </div>
     </Router>
   );
