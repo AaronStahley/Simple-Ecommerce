@@ -8,11 +8,18 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import { Route, Link, BrowserRouter as Router } from "react-router-dom";
+import {
+	Route,
+	Redirect,
+	Link,
+	BrowserRouter as Router
+} from "react-router-dom";
 import Home from "../pages/Home";
 
-function RegistrationForm(props) {
-	const { client } = props;
+class RegistrationForm extends Component {
+	state = {
+		redirect: false
+	};
 
 	registerUser = e => {
 		e.preventDefault();
@@ -27,7 +34,10 @@ function RegistrationForm(props) {
 				err => {
 					if (!err) {
 						console.log(Accounts.userId());
-						client.resetStore();
+						this.props.client.resetStore();
+						this.setState({
+							redirect: true
+						});
 					}
 					console.log(err);
 				}
@@ -37,52 +47,60 @@ function RegistrationForm(props) {
 		}
 	};
 
-	return (
-		<div>
-			<Paper>
-				<Typography variant="h5" component="h3">
-					<form onSubmit={registerUser}>
-						<DialogTitle id="form-dialog-title">Register</DialogTitle>
-						<DialogContent>
-							<TextField
-								autoFocus
-								margin="dense"
-								id="email"
-								label="Email"
-								type="email"
-								inputRef={input => (this.email = input)}
-								fullWidth
-							/>
-							<TextField
-								margin="dense"
-								id="register-password"
-								label="Password"
-								type="password"
-								inputRef={input => (this.password = input)}
-								fullWidth
-							/>
-							<TextField
-								margin="dense"
-								id="register-confirm-password"
-								label="Confirm Password"
-								type="password"
-								inputRef={input => (this.confirmPassword = input)}
-								fullWidth
-							/>
-						</DialogContent>
-						<DialogActions>
-							<Button color="primary" component={Link} to="/">
-								Cancel
-							</Button>
-							<Button type="submit" color="primary">
-								Register
-							</Button>
-						</DialogActions>
-					</form>
-				</Typography>
-			</Paper>
-		</div>
-	);
+	render() {
+		const { redirect } = this.state;
+
+		if (redirect) {
+			return <Redirect to="/" />;
+		}
+
+		return (
+			<div>
+				<Paper>
+					<Typography variant="h5" component="h3">
+						<form onSubmit={this.registerUser}>
+							<DialogTitle id="form-dialog-title">Register</DialogTitle>
+							<DialogContent>
+								<TextField
+									autoFocus
+									margin="dense"
+									id="email"
+									label="Email"
+									type="email"
+									inputRef={input => (this.email = input)}
+									fullWidth
+								/>
+								<TextField
+									margin="dense"
+									id="register-password"
+									label="Password"
+									type="password"
+									inputRef={input => (this.password = input)}
+									fullWidth
+								/>
+								<TextField
+									margin="dense"
+									id="register-confirm-password"
+									label="Confirm Password"
+									type="password"
+									inputRef={input => (this.confirmPassword = input)}
+									fullWidth
+								/>
+							</DialogContent>
+							<DialogActions>
+								<Button color="primary" component={Link} to="/">
+									Cancel
+								</Button>
+								<Button type="submit" color="primary">
+									Register
+								</Button>
+							</DialogActions>
+						</form>
+					</Typography>
+				</Paper>
+			</div>
+		);
+	}
 }
 
 export default RegistrationForm;

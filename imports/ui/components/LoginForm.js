@@ -9,7 +9,7 @@ import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import {
-	withRouter,
+	Redirect,
 	Route,
 	Link,
 	BrowserRouter as Router
@@ -17,14 +17,20 @@ import {
 import Home from "../pages/Home";
 
 class LoginForm extends Component {
+	state = {
+		redirect: false
+	};
+
 	login = e => {
 		e.preventDefault();
 
 		//Logins the user with email and pass given.
 		Meteor.loginWithPassword(this.email.value, this.password.value, err => {
 			if (!err) {
-				console.log(Accounts.userId());
 				this.props.client.resetStore();
+				this.setState({
+					redirect: true
+				});
 			}
 			console.log(err);
 		});
@@ -32,6 +38,11 @@ class LoginForm extends Component {
 
 	render() {
 		const { client } = this.props;
+		const { redirect } = this.state;
+
+		if (redirect) {
+			return <Redirect to="/" />;
+		}
 
 		return (
 			<div>
