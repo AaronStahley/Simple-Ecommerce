@@ -18,18 +18,41 @@ import Home from "../pages/Home";
 
 class RegistrationForm extends Component {
 	state = {
-		redirect: false
+		redirect: false,
+		email: "",
+		password: "",
+		confimPassword: "",
+		createAccountError: false,
+		passwordMatchError: false
+	};
+
+	handleEmail = e => {
+		this.setState({ email: e.target.value.trim() });
+	};
+
+	handlePassword = e => {
+		this.setState({ password: e.target.value.trim() });
+	};
+
+	handleConfirmPassword = e => {
+		this.setState({ confimPassword: e.target.value.trim() });
 	};
 
 	registerUser = e => {
 		e.preventDefault();
 
+		console.log(
+			this.state.password,
+			"  ",
+			this.state.confimPassword,
+			this.state.password === this.state.confirmPasswordS
+		);
 		//Creates an account with the user info.
-		if (this.password.value === this.confirmPassword.value) {
+		if (this.state.password === this.state.confirmPassword) {
 			Accounts.createUser(
 				{
-					email: this.email.value,
-					password: this.password.value
+					email: this.state.email.value,
+					password: this.state.password
 				},
 				err => {
 					if (!err) {
@@ -39,20 +62,36 @@ class RegistrationForm extends Component {
 							redirect: true
 						});
 					}
+					this.setState({
+						createAccountError: true
+					});
 					console.log(err);
 				}
 			);
 		} else {
 			console.log("Passwords dont match");
+			this.setState({
+				passwordMatchError: true
+			});
 		}
 	};
 
 	render() {
-		const { redirect } = this.state;
+		const {
+			redirect,
+			email,
+			password,
+			confimPassword,
+			error,
+			passwordMatchError
+		} = this.state;
 
 		if (redirect) {
 			return <Redirect to="/" />;
 		}
+
+		const enabled = email.length > 0 && password.length > 0;
+		// && password === confimPassword;
 
 		return (
 			<div>
@@ -67,7 +106,8 @@ class RegistrationForm extends Component {
 									id="email"
 									label="Email"
 									type="email"
-									inputRef={input => (this.email = input)}
+									value={email}
+									onChange={this.handleEmail}
 									fullWidth
 								/>
 								<TextField
@@ -75,7 +115,8 @@ class RegistrationForm extends Component {
 									id="register-password"
 									label="Password"
 									type="password"
-									inputRef={input => (this.password = input)}
+									value={password}
+									onChange={this.handlePassword}
 									fullWidth
 								/>
 								<TextField
@@ -83,15 +124,20 @@ class RegistrationForm extends Component {
 									id="register-confirm-password"
 									label="Confirm Password"
 									type="password"
-									inputRef={input => (this.confirmPassword = input)}
+									value={confimPassword}
+									onChange={this.handleConfirmPassword}
 									fullWidth
+									error={passwordMatchError}
+									helperText={
+										passwordMatchError ? "Password does not match." : ""
+									}
 								/>
 							</DialogContent>
 							<DialogActions>
 								<Button color="primary" component={Link} to="/">
 									Cancel
 								</Button>
-								<Button type="submit" color="primary">
+								<Button type="submit" color="primary" disabled={!enabled}>
 									Register
 								</Button>
 							</DialogActions>
