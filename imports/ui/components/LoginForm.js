@@ -18,37 +18,52 @@ import Home from "../pages/Home";
 
 class LoginForm extends Component {
 	state = {
-		redirect: false
+		redirect: false,
+		email: "",
+		password: "",
+		error: false
 	};
 
-	login = e => {
+	handleEmail = e => {
+		this.setState({ email: e.target.value });
+	};
+
+	handlePassword = e => {
+		this.setState({ password: e.target.value });
+	};
+
+	handleLogin = e => {
 		e.preventDefault();
 
 		//Logins the user with email and pass given.
-		Meteor.loginWithPassword(this.email.value, this.password.value, err => {
+		Meteor.loginWithPassword(this.state.email, this.state.password, err => {
 			if (!err) {
 				this.props.client.resetStore();
 				this.setState({
-					redirect: true
+					redirect: true,
+					error: false
 				});
 			}
-			console.log(err);
+			this.setState({
+				error: true
+			});
 		});
 	};
 
 	render() {
-		const { client } = this.props;
-		const { redirect } = this.state;
+		const { redirect, email, password, error } = this.state;
 
 		if (redirect) {
 			return <Redirect to="/" />;
 		}
 
+		const enabled = email.length > 0 && password.length > 0;
+
 		return (
 			<div>
 				<Paper>
 					<Typography variant="h5" component="h3">
-						<form onSubmit={this.login}>
+						<form onSubmit={this.handleLogin}>
 							<DialogTitle id="form-dialog-title">Login</DialogTitle>
 							<DialogContent>
 								<TextField
@@ -57,16 +72,25 @@ class LoginForm extends Component {
 									id="email"
 									label="Email"
 									type="email"
-									inputRef={input => (this.email = input)}
+									// inputRef={input => (this.email = input)}
 									fullWidth
+									required
+									value={email}
+									onChange={this.handleEmail}
+									error={error}
 								/>
 								<TextField
 									margin="dense"
 									id="login-password"
 									label="Password"
 									type="password"
-									inputRef={input => (this.password = input)}
+									// inputRef={input => (this.password = input)}
 									fullWidth
+									required
+									value={password}
+									onChange={this.handlePassword}
+									error={error}
+									helperText={error ? "Wrong email or password" : ""}
 								/>
 							</DialogContent>
 							<DialogActions>
@@ -76,7 +100,7 @@ class LoginForm extends Component {
 								<Button color="primary" component={Link} to="/">
 									Cancel
 								</Button>
-								<Button type="submit" color="primary">
+								<Button type="submit" color="primary" disabled={!enabled}>
 									Login
 								</Button>
 							</DialogActions>
