@@ -4,7 +4,7 @@ import gql from "graphql-tag";
 import { graphql } from "react-apollo";
 import { withApollo } from "react-apollo";
 import "./css/index.css";
-import LoadingIcon from "./LoadingIcon";
+import LoadingIcon from "./components/LoadingIcon";
 import { Route, Link, BrowserRouter as Router } from "react-router-dom";
 import Account from "./pages/Account";
 import BuyAgain from "./pages/BuyAgain";
@@ -16,41 +16,41 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 
 const App = ({ user, loading, client }) => {
-	if (loading) return <LoadingIcon />;
+  if (loading) return <LoadingIcon />;
 
-	return (
-		<Router>
-			<div>
-				<NavBar user={user} client={client} />
-				<Route
-					exact
-					path="/login"
-					render={() => <Login user={user} client={client} />}
-				/>
-				<Route
-					exact
-					path="/register"
-					render={() => <Register user={user} client={client} />}
-				/>
-				<Route exact path="/account" component={Account} />
-				<Route exact path="/buyagain" component={BuyAgain} />
-				<Route exact path="/" component={Home} />
-				<Route exact path="/List" component={List} />
-				<Route exact path="/orders" component={Orders} />
-				<Route exact path="/cart" component={Cart} />
-			</div>
-		</Router>
-	);
+  return (
+    <Router>
+      <div>
+        <NavBar user={user} client={client} />
+        <Route
+          exact
+          path="/login"
+          render={() => <Login user={user} client={client} />}
+        />
+        <Route
+          exact
+          path="/register"
+          render={() => <Register user={user} client={client} />}
+        />
+        <Route exact path="/account" component={Account} />
+        <Route exact path="/buyagain" component={BuyAgain} />
+        <Route exact path="/" component={Home} />
+        <Route exact path="/List" component={List} />
+        <Route exact path="/orders" component={Orders} />
+        <Route exact path="/cart" component={Cart} />
+      </div>
+    </Router>
+  );
 };
 
 const userQuery = gql`
-	query Resolutions {
-		user {
-			_id
-		}
-	}
+  query Resolutions {
+    user {
+      _id
+    }
+  }
 `;
 
 export default graphql(userQuery, {
-	props: ({ data }) => ({ ...data })
+  props: ({ data }) => ({ ...data })
 })(withApollo(App));
