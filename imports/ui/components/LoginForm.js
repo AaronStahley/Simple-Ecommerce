@@ -38,15 +38,21 @@ class LoginForm extends Component {
     //Logins the user with email and pass given.
     Meteor.loginWithPassword(this.state.email, this.state.password, err => {
       if (!err) {
-        this.props.client.resetStore();
+        this.setState(
+          {
+            redirect: true,
+            error: false
+          },
+          () => {
+            console.log("Hello");
+            this.props.client.resetStore();
+          }
+        );
+      } else {
         this.setState({
-          redirect: true,
-          error: false
+          error: true
         });
       }
-      this.setState({
-        error: true
-      });
     });
   };
 
@@ -72,7 +78,6 @@ class LoginForm extends Component {
                   id="email"
                   label="Email"
                   type="email"
-                  // inputRef={input => (this.email = input)}
                   fullWidth
                   required
                   value={email}
@@ -84,7 +89,6 @@ class LoginForm extends Component {
                   id="login-password"
                   label="Password"
                   type="password"
-                  // inputRef={input => (this.password = input)}
                   fullWidth
                   required
                   value={password}
