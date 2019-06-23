@@ -7,28 +7,20 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import ShoppingCart from "@material-ui/icons/ShoppingCart";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import Switch from "@material-ui/core/Switch";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormGroup from "@material-ui/core/FormGroup";
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
 import Badge from "@material-ui/core/Badge";
 import LogoutIcon from "@material-ui/icons/ExitToApp";
 import Drawer from "@material-ui/core/Drawer";
 import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
 import HomeIcon from "@material-ui/icons/Home";
 import ListIcon from "@material-ui/icons/ListAlt";
 import BuyAgainIcon from "@material-ui/icons/Replay";
 import OrdersIcon from "@material-ui/icons/Assignment";
 import { Link } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
-import grey from "@material-ui/core/colors/grey";
 
 const useStyles = makeStyles(theme => ({
   root: {

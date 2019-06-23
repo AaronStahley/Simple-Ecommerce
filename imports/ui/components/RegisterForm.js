@@ -8,12 +8,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import {
-  Route,
-  Redirect,
-  Link,
-  BrowserRouter as Router
-} from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import Home from "../pages/Home";
 
 class RegistrationForm extends Component {
@@ -114,6 +109,7 @@ class RegistrationForm extends Component {
                   value={email}
                   onChange={this.handleEmail}
                   fullWidth
+                  required
                 />
                 <TextField
                   margin="dense"
@@ -123,6 +119,7 @@ class RegistrationForm extends Component {
                   value={password}
                   onChange={this.handlePassword}
                   fullWidth
+                  required
                 />
                 <TextField
                   margin="dense"
@@ -132,6 +129,7 @@ class RegistrationForm extends Component {
                   value={confimPassword}
                   onChange={this.handleConfirmPassword}
                   fullWidth
+                  required
                   error={!passwordMatchErr}
                   helperText={
                     !passwordMatchErr ? "Password does not match." : ""

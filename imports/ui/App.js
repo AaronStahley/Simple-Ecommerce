@@ -5,7 +5,7 @@ import { graphql } from "react-apollo";
 import { withApollo } from "react-apollo";
 import "./css/index.css";
 import LoadingIcon from "./components/LoadingIcon";
-import { Route, Link, BrowserRouter as Router } from "react-router-dom";
+import { Route, BrowserRouter as Router } from "react-router-dom";
 import Account from "./pages/Account";
 import BuyAgain from "./pages/BuyAgain";
 import Home from "./pages/Home";
