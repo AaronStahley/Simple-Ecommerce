@@ -88,45 +88,25 @@ function NavBar(props) {
           </ListItemIcon>
           <ListItemText primary={"Home"} />
         </ListItem>
-        <ListItem
-          component={Link}
-          to={user._id ? "/orders" : "/login"}
-          button
-          key={"Your Orders"}
-        >
+        <ListItem component={Link} to={"/orders"} button key={"Your Orders"}>
           <ListItemIcon>
             <OrdersIcon />
           </ListItemIcon>
           <ListItemText primary={"Your Orders"} />
         </ListItem>
-        <ListItem
-          component={Link}
-          to={user._id ? "/buyagain" : "/login"}
-          button
-          key={"Buy Again"}
-        >
+        <ListItem component={Link} to={"/buyagain"} button key={"Buy Again"}>
           <ListItemIcon>
             <BuyAgainIcon />
           </ListItemIcon>
           <ListItemText primary={"Buy Again"} />
         </ListItem>
-        <ListItem
-          component={Link}
-          to={user._id ? "/list" : "/login"}
-          button
-          key={"Your List"}
-        >
+        <ListItem component={Link} to={"/list"} button key={"Your List"}>
           <ListItemIcon>
             <ListIcon />
           </ListItemIcon>
           <ListItemText primary={"Your List"} />
         </ListItem>
-        <ListItem
-          component={Link}
-          to={user._id ? "/account" : "/login"}
-          button
-          key={"Your Account"}
-        >
+        <ListItem component={Link} to={"/account"} button key={"Your Account"}>
           <ListItemIcon>
             <AccountCircle />
           </ListItemIcon>
