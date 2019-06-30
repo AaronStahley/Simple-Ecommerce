@@ -74,7 +74,7 @@ const App = ({ user, loading, client }) => {
 };
 
 const userQuery = gql`
-  query Resolutions {
+  query user {
     user {
       _id
     }
