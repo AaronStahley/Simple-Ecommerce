@@ -1,0 +1,11 @@
+.Product-Card-Actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.products-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}

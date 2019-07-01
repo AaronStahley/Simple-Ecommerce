@@ -1,20 +1,24 @@
 import React, { Component } from "react";
 import gql from "graphql-tag";
 import { graphql } from "react-apollo";
-
 import { withApollo } from "react-apollo";
+import ProductCard from "../components/ProductCard";
+import "../css/home.css";
 
 const Home = ({ loading, Products }) => {
   if (loading) return null;
   return (
-    <div>
-      <h1>Home</h1>
-      <h3>Products</h3>
-      <ul>
+    <div className="root-container">
+      <div className="products-list">
         {Products.map(product => (
-          <li key={product._id}>{product.name}</li>
+          <p key={product._id}>
+            <ProductCard
+              name={product.name}
+              description={product.description}
+            />
+          </p>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
