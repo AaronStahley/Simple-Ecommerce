@@ -35,10 +35,10 @@ export default function ProductCard(props) {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            {props.name}
+            {props.product.name}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            {props.description}
+            {"$" + props.product.price}
           </Typography>
         </CardContent>
       </CardActionArea>

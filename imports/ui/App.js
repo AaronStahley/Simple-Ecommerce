@@ -35,9 +35,6 @@ const App = ({ user, loading, client }) => {
   }
 
   if (loading) return <LoadingIcon />;
-
-  console.log(user._id);
-
   return (
     <Router>
       <div>
