@@ -3,16 +3,13 @@ import gql from "graphql-tag";
 import { graphql } from "react-apollo";
 import { withApollo } from "react-apollo";
 import ProductCard from "../components/ProductCard";
-import "../css/home.css";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1,
-    marginTop: 20,
-    marginLeft: "auto",
-    marginRight: "auto"
+    display: "flex",
+    marginTop: 20
   }
 }));
 
@@ -24,13 +21,13 @@ function Home(props) {
     <div className={classes.root}>
       <Grid
         container
-        spacing={3}
+        spacing={5}
         direction="row"
         alignItems="center"
-        justify="space-between"
+        justify="space-around"
       >
         {props.Products.map(product => (
-          <Grid item xs={6} sm={3} key={"Grid" + product._id}>
+          <Grid item xs key={`Grid ${product._id}`}>
             <ProductCard key={product._id} product={product} />
           </Grid>
         ))}
