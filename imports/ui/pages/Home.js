@@ -8,8 +8,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    display: "flex",
-    marginTop: 20
+    display: "flex"
   }
 }));
 
@@ -21,13 +20,12 @@ function Home(props) {
     <div className={classes.root}>
       <Grid
         container
-        spacing={5}
         direction="row"
         alignItems="center"
         justify="space-around"
       >
         {props.Products.map(product => (
-          <Grid item xs key={`Grid ${product._id}`}>
+          <Grid item key={`Grid ${product._id}`}>
             <ProductCard key={product._id} product={product} />
           </Grid>
         ))}
